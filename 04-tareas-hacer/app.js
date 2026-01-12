@@ -3,7 +3,7 @@ require('colors');
 //con inquirer esta linea ya no es necesaria:
 //const { mostrarMenu, pausa } = require('./helpers/mensajes');
 
-const { inquirerMenu } = require('./helpers/inquirer');
+const { inquirerMenu, pausa } = require('./helpers/inquirer');
 
 
 console.clear();
@@ -33,9 +33,12 @@ const main = async() => {
 
 
     //esta forma se hace con el archivo inquirer.js
+    
     do{
         opt = await inquirerMenu();
         console.log({ opt });
+
+        await pausa();
         
     }while (opt !== '0');
 
