@@ -1,3 +1,5 @@
+//este archivo se usa para manejar los menús y preguntas usando inquirer
+
 const inquirer = require('inquirer');
 
 require('colors');
@@ -9,12 +11,13 @@ const preguntas = [
         name: 'opcion',
         message: '¿Qué desea hacer?',
         choices: [
-            { name: 'Opción 1', value: '1' },
-            { name: 'Opción 2', value: '2' },
-            { name: 'Opción 3', value: '3' },
-            { name: 'Opción 4', value: '4' },
-            { name: 'Opción 5', value: '5' },
-            { name: 'Opción 6', value: '6' }
+            { name: 'Crear Tarea', value: '1' },
+            { name: 'Listar Tareas', value: '2' },
+            { name: 'Tareas Completadas', value: '3' },
+            { name: 'Tareas Pendientes', value: '4' },
+            { name: 'Completar Tareas', value: '5' },
+            { name: 'Borrar Tarea', value: '6' },
+            { name: 'Salir', value: '0' }
         ]
     }
 ];
@@ -75,9 +78,90 @@ const leerInput = async() => {
 
 
 
+const listadoTareasBorrar = async( tareas = [] ) => {
+
+
+    const choices = tareas.map( (tarea, i) => { 
+        const idx = `${i + 1}.`.green;
+        return {
+            value: tarea.id,
+            name: `${ idx } ${ tarea.desc }`
+        }
+    });
+
+    choices.unshift({   
+        value: '0',
+        name: '0.'.green + ' Cancelar'
+    });
+
+    const preguntas = [
+        {
+            type: 'list',   
+            name: 'id',
+            message: 'Borrar',
+            choices
+        }
+    ];
+
+    const { id } = await inquirer.prompt(preguntas);
+    return id;
+};
+
+
+
+const mostrarListadoCheckList = async( tareas = [] ) => {
+
+
+    const choices = tareas.map( (tarea, i) => { 
+        const idx = `${i + 1}.`.green;
+
+        return {
+            value: tarea.id,
+            name: `${ idx } ${ tarea.desc }`,
+            checked: ( tarea.completadoEn ) ? true : false
+        }
+    });
+
+
+    const pregunta = [
+        {
+            type: 'checkbox',   
+            name: 'ids',
+            message: 'Selecciones',
+            choices
+        }
+    ];
+
+    const { ids } = await inquirer.prompt(pregunta);
+    return ids;
+};
+
+
+
+const confirmar = async (message) => {
+
+    const pregunta = [
+        {   
+            type: 'confirm',
+            name: 'ok',
+            message
+        }
+    ];
+
+    const { ok } = await inquirer.prompt(pregunta);
+    return ok;
+};
+
+
+
+
+
 
 module.exports = {
     inquirerMenu,
     pausa,
-    leerInput
+    leerInput,
+    listadoTareasBorrar,
+    mostrarListadoCheckList,
+    confirmar
 };
