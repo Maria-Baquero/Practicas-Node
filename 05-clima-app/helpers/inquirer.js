@@ -11,13 +11,10 @@ const preguntas = [
         name: 'opcion',
         message: '¿Qué desea hacer?',
         choices: [
-            { name: 'Crear Tarea', value: '1' },
-            { name: 'Listar Tareas', value: '2' },
-            { name: 'Tareas Completadas', value: '3' },
-            { name: 'Tareas Pendientes', value: '4' },
-            { name: 'Completar Tareas', value: '5' },
-            { name: 'Borrar Tarea', value: '6' },
-            { name: 'Salir', value: '0' }
+            { name: 'Buscar ciudad', value: 1 },
+            { name: 'Historial', value: 2 },
+            { name: 'Salir', value: 0 },
+
         ]
     }
 ];
