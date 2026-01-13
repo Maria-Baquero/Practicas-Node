@@ -1,19 +1,16 @@
+require('dotenv').config();
 require('colors');
 
 const { inquirerMenu,
     pausa,
     leerInput, 
-    listadoTareasBorrar, 
+    listarLugares, 
     mostrarListadoCheckList,
     confirmar 
 } = require('./helpers/inquirer');
 
 
 const Busquedas = require('./models/busquedas');
-
-
-
-
 
 
 
@@ -28,10 +25,11 @@ const main = async() => {
         switch (opt){
             case 1:
                 //mostrar mensaje
-                const lugar = await leerInput('Ciudad: ');
-                await busquedas.ciudad( lugar );
-
-
+                const termino = await leerInput('Ciudad: ');
+                const lugares =await busquedas.ciudad( termino );
+                const id = await listarLugares( lugares );
+                const lugarSel = lugares.find( l => l.id === id );
+                console.log(lugarSel);
 
 
 
@@ -44,9 +42,9 @@ const main = async() => {
 
                 //mostrar resultados
                 console.log('\nInformacion de la ciudad\n'.green);
-                console.log('Ciudad:', lugar);
-                console.log('Latitud:', );
-                console.log('Longitud:', );
+                console.log('Ciudad:', lugarSel.nombre);
+                console.log('Latitud:', lugarSel.lat);
+                console.log('Longitud:', lugarSel.lng);
                 console.log('Temperatura:', );
                 console.log('Minima:', );
                 console.log('Maxima:', );
@@ -67,16 +65,6 @@ const main = async() => {
 
 
     }while (opt !== 0);
-
-
-
-
-
-
-
-
-
-
 
 
 };

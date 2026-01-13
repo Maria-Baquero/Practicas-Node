@@ -2,23 +2,45 @@ const axios = require('axios');
 
 
 
-class Busquedas{
+class Busquedas {
 
-    historial = [ 'Madrid', 'New York', 'Paris' ];
+    historial = ['Madrid', 'New York', 'Paris'];
 
-    constructor(){
+    constructor() {
         //leer bd si existe
     }
 
 
+    //usar api de location iq
+    async ciudad(lugar = '') {
 
-    async ciudad( lugar = '' ){
         //peticion http
 
-        const resp = await axios.get('https://dummyjson.com/users');
-        console.log(resp.data);
+        try {
+            const instance = axios.create({
+                baseURL: `https://us1.locationiq.com/v1`,
+                params: {
+                    key: process.env.LOCATIONIQ_KEY,
+                    format: 'json',
+                    limit: 5,
+                    'accept-language': 'es'
+                }
+            });
 
-        return [];
+            const resp = await instance.get('/search', {
+                params: { q: lugar }
+            });
+
+            return resp.data.map(lugar => ({
+                id: lugar.place_id,
+                nombre: lugar.display_name,
+                lat: lugar.lat,
+                lng: lugar.lon
+            }));
+
+        } catch (error) {
+            return [];
+        }
     }
 
 
