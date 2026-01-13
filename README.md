@@ -10,4 +10,4 @@ Tambien se debera instalar:
     dotenv: npm install dotenv
 
 
-En el archivo .env habrá que rellenar las api keys.
+En el archivo .env (05-clima-app) habrá que rellenar las api keys.
