@@ -8,6 +8,8 @@ Tambien se debera instalar:
     inquirer: npm install inquirer@8
     axios: npm install axios@1.5.1
     dotenv: npm install dotenv
+    express: npm i express
+    handlebars: npm install hbs
 
 
 En el archivo .env (05-clima-app) habrá que rellenar las api keys.
