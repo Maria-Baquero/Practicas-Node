@@ -28,18 +28,23 @@ const main = async() => {
                 const termino = await leerInput('Ciudad: ');
 
                 //buscar las ciudades
-                const lugares =await busquedas.ciudad( termino );
+                const lugares = await busquedas.ciudad( termino );
 
                 //seleccionar la ciudad
                 const id = await listarLugares( lugares );
-                const lugarSel = lugares.find( l => l.id === id );
-                console.log(lugarSel);  //<-------- borrar
+                if (id === '0') continue;
 
+                //conseguir info de la ciudad
+                const lugarSel = lugares.find( l => l.id === id );
+
+                //guardar en BD
+                busquedas.agregarHistorial(lugarSel.nombre);
+                
 
                 //buscar clima de la ciudad elegida
                 const clima = await busquedas.climaLugar( lugarSel.lat, lugarSel.lng );
                 
-                console.log(clima); //<-------- borrar
+                
 
                 //mostrar resultados
                 console.log('\nInformacion de la ciudad\n'.green);
@@ -54,7 +59,10 @@ const main = async() => {
             break;
 
             case 2:
-                console.log('Historial');
+                busquedas.historialCapitalizado.forEach( (lugar, i) => {
+                    const idx = `${ i + 1}.`.green;
+                    console.log( `${ idx } ${ lugar }` );
+                });
             break;
 
             case 0:
