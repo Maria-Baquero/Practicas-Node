@@ -1,8 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const hbs = require('hbs');
 
 const app = express();
-
+const port = process.env.PORT;
 
 //Handlebars
 app.set('view engine', 'hbs');
@@ -44,11 +45,9 @@ app.get('/elements', function(req, res){
 });
 
 
-//no se encuentra la ruta mandamos mensaje 404
-app.use((req, res) => {
-    res.sendFile(path.join(__dirname, 'public', '404.html'));
-});
-
+app.listen(port, () =>{
+    console.log(`App listening at http://localhost:${port}`)
+})
 
 
 app.listen(8080);
