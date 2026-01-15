@@ -21,8 +21,8 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
     //mandamos la vista home renderizada a la ruta home
         //con render podemos pasar un segundo argumento que son las opciones, donde pueden ir datos
-    res.render('home', {
-        nombre: 'Maria Baquero',
+    res.render('home', {    //nombre de la vista
+        nombre: 'Maria Baquero',       //datos a enviar
         titulo: 'Course Node'
     });
 })
@@ -49,5 +49,3 @@ app.listen(port, () =>{
     console.log(`App listening at http://localhost:${port}`)
 })
 
-
-app.listen(8080);
