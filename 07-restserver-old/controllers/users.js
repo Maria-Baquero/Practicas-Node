@@ -1,7 +1,5 @@
-const { request, response } = require('express');
-const User = require('../models/user');
+const { response, request } = require('express');
 
- 
 
 const usersGet = (req = request, res = response) => {
 
@@ -19,17 +17,15 @@ const usersGet = (req = request, res = response) => {
 }
 
 
-const usersPost = async (req, res = response) => {
+const usersPost = (req, res = response) => {
 
     //leer informacion json que viene en el body, peticion post
-    const body = req.body;
-    const user = new User(body);
+    const {nombre, edad}= req.body;
 
-    await user.save();
-
-    res.json({
+    res.status(200).json({
         msg: 'post API - controller',
-        user
+        nombre, 
+        edad
     });
 }
 
@@ -58,6 +54,7 @@ const usersPatch = (req, res = response) => {
         msg: 'patch API - controller'
     });
 }
+
 
 
 module.exports = {
