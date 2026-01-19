@@ -1,14 +1,14 @@
 const { Schema, model} = require('mongoose');
 
 
-const userSchema = Schema({
+const UserSchema = Schema({
 
-    nombre: {
+    name: {
         type: String,
         required: [true, 'Name is required']
 
     },
-    correo: {
+    email: {
         type: String,
         required: [true, 'Email is required'],
         unique: true
@@ -29,7 +29,7 @@ const userSchema = Schema({
         enum: ['ADMIN_ROLE', 'USER_ROLE']
 
     },
-    estado: {
+    status: {
         type: Boolean,
         default: true
 
@@ -41,7 +41,10 @@ const userSchema = Schema({
 
 });
 
+//ocultar contraseña para ello sobreescribimos el json que se manda con el objeto usuario
+UserSchema.methods.toJSON = function() {
+    const { __v, password, ...user} = this.toObject();
+    return user;
+}
 
-
-
-module.exports = model('User', userSchema);
+module.exports = model('User', UserSchema);

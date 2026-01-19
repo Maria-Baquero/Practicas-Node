@@ -4,12 +4,12 @@ const { response, request } = require('express');
 const usersGet = (req = request, res = response) => {
 
     //leer informacion que viene en la url
-    const {q, nombre, apikey, page, limit} = req.query;
+    const {q, name, apikey, page, limit} = req.query;
 
     res.json({
         msg: 'get API - Controlador',
         q,
-        nombre,
+        name,
         apikey,
         page, 
         limit
@@ -20,13 +20,26 @@ const usersGet = (req = request, res = response) => {
 const usersPost = (req, res = response) => {
 
     //leer informacion json que viene en el body, peticion post
-    const {nombre, edad}= req.body;
+    const {name, age}= req.body;
 
     res.status(200).json({
         msg: 'post API - controller',
-        nombre, 
-        edad
+        name, 
+        age
     });
+
+    // Ó 
+    /*
+    const body = req.body;
+        const user = new User(body);
+    
+        await user.save();
+    
+        res.json({
+            
+            user
+        });
+    */
 }
 
 
