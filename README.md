@@ -5,15 +5,15 @@ Para poder utilizar la aplicacion necesitas instalar npm para generar
 nuevamente la carpeta node_modules: npm install
 
 Tambien se debera instalar:
-    inquirer: npm install inquirer@8,
-    axios: npm install axios@1.5.1,
-    dotenv: npm install dotenv,
-    express: npm i express,
-    handlebars: npm install hbs,
-    cors: npm install cors,
-    mongoose: npm install mongoose, 
-    bcryptjs: npm install bcryptjs, 
-    express-validator: npm i express-validator
+    Inquirer: npm install inquirer@8,
+    Axios: npm install axios@1.5.1,
+    Dotenv: npm install dotenv,
+    Express: npm i express,
+    Handlebars: npm install hbs,
+    Cors: npm install cors,
+    Mongoose: npm install mongoose, 
+    Bcryptjs: npm install bcryptjs, 
+    Express-validator: npm i express-validator
 
 
 
