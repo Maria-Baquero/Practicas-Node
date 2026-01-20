@@ -97,9 +97,18 @@ const usersPut = async(req, res = response) => {
 
 
 
-const usersPatch = (req, res = response) => {
+const usersPatch = async(req = request, res = response) => {
+    const query = {status: true}
+
+    const users = await User.find(query)
+        .limit(Number(limit));
+
+    const total = await User.countDocuments(query);
+
     res.json({
-        msg: 'patch API - controller'
+        msg: 'patch API - controller',
+        total,
+        users
     });
 }
 
