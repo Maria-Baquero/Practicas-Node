@@ -8,26 +8,41 @@ const User = require('../models/user');
 
 
 
+//Mostrar usuarios
+const usersGet = async (req = request, res = response) => {
 
-const usersGet = (req = request, res = response) => {
+    //esto quiere decir que al mostrar los usuarios solo mostrará 5 
+    const {limit = 0} = req.query;
+    const query = {status: true}
 
-    //leer informacion que viene en la url
-    const {q, name, apikey, page, limit} = req.query;
+    const users = await User.find(query)
+        .limit(Number(limit));
 
-    res.json({
-        msg: 'get API - Controlador',
-        q,
-        name,
-        apikey,
-        page, 
-        limit
+    const total = await User.countDocuments(query);
+
+    //Con promesas tarda menos en cargar, este es el mismo codigo: 
+    /*
+    const answer = await Promise.all([
+        User.countDocuments(query),
+        User.find(query)
+            .limit(Number(limit))
+    ]);
+
+    res.json({ 
+        answer
+    });
+    */
+
+    res.json({ 
+        total,
+        users
     });
 }
 
 
 
 
-
+//Crear usuarios
 const usersPost = async (req, res = response) => {
 
 
@@ -57,13 +72,13 @@ const usersPost = async (req, res = response) => {
 
 
 
-
+//Actualizar usuarios
 const usersPut = async(req, res = response) => {
 
     const { id }= req.params;
 
     //aqui excluimos los datos que no necesitamos o no queremos en este momento
-    const { password, google, ...data} = req.body;
+    const { _id, password, google, ...data} = req.body;
 
 
     //validar con base de datos
@@ -75,21 +90,10 @@ const usersPut = async(req, res = response) => {
 
     const user = await User.findByIdAndUpdate( id, data);
 
-    res.json({
-        msg: 'put API - controller',
-        user
-    });
+    res.json({ user });
 }
 
 
-
-
-
-const usersDelete = (req, res = response) => {
-    res.json({
-        msg: 'delete API - controller'
-    });
-}
 
 
 
@@ -100,10 +104,27 @@ const usersPatch = (req, res = response) => {
 }
 
 
+
+
+
+//Eliminar usuarios
+const usersDelete = async(req, res = response) => {
+    const {id} = req.params;
+
+    const users = await User.findByIdAndDelete( id );
+
+    res.json({
+        id
+    });
+}
+
+
+
+
 module.exports = {
     usersGet,
     usersPost,
     usersPut,
-    usersDelete,
-    usersPatch
+    usersPatch,
+    usersDelete
 }
