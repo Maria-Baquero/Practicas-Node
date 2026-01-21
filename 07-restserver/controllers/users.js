@@ -98,17 +98,9 @@ const usersPut = async(req, res = response) => {
 
 
 const usersPatch = async(req = request, res = response) => {
-    const query = {status: true}
-
-    const users = await User.find(query)
-        .limit(Number(limit));
-
-    const total = await User.countDocuments(query);
 
     res.json({
         msg: 'patch API - controller',
-        total,
-        users
     });
 }
 
@@ -117,6 +109,7 @@ const usersPatch = async(req = request, res = response) => {
 
 
 //Eliminar usuarios
+/*
 const usersDelete = async(req, res = response) => {
     const {id} = req.params;
 
@@ -126,7 +119,17 @@ const usersDelete = async(req, res = response) => {
         id
     });
 }
+*/
 
+const usersDelete = async(req, res = response) => {
+    const {id} = req.params;
+
+    const user = await User.findByIdAndUpdate(id, {status: false});
+
+    const userAuth = req.user;
+
+    res.json({user});
+}
 
 
 
