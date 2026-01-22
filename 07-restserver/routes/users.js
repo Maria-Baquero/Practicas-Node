@@ -21,9 +21,6 @@ router.get('/', usersGet );
 
 
 
-
-
-
 //Los middlewares para validar van como segundo argumento,
 //si se pasa mas de uno tendrá que ir como un arreglo (entre [])
 router.post('/', [
