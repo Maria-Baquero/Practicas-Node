@@ -3,20 +3,25 @@ const {check} = require('express-validator');
 
 const {categoryExistById} = require('../helpers/db-validators');
 const {validateFields, validateJWT, validateAdminRole} = require('../middlewares');
-const { createCategory } = require('../controllers/categories');
+const { getCategories,
+    getCategory,
+    createCategory,
+    putCategory,
+    deleteCategory } = require('../controllers/categories');
 
 const router = Router();
 
 
 
 //obtener todas las categorias
-router.get('/', controladorAqui);
+router.get('/', getCategories);
 
 
 //obtener categoria por id
 router.get('/:id', [
-    check('id').custom(categoryExistById)
-],controladorAqui);
+    check('id', 'Id doesnt exist').custom(categoryExistById),
+    validateFields
+],getCategory);
 
 
 
@@ -35,15 +40,16 @@ router.put('/:id', [
     validateJWT,
     check('id').custom(categoryExistById),
     validateFields
-], controladorAqui);
+], putCategory);
 
 
 //borrar una categoria - admin
 router.delete('/:id', [
     validateJWT,
+    check('id', 'Is not a Mongo id valid').isMongoId(),
     check('id').custom(categoryExistById),
     validateAdminRole
-], controladorAqui);
+], deleteCategory);
 
 
 
