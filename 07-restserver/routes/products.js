@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const {check} = require('express-validator');
 
-const {productExistById, categoryExistById} = require('../helpers/db-validators');
+const {productExistById, categoryExistById} = require('../helpers');
 const {validateFields, validateJWT, validateAdminRole} = require('../middlewares');
 const { getProducts,
     getProduct,
@@ -20,7 +20,7 @@ router.get('/', getProducts);
 //obtener producto por id
 router.get('/:id', [
    check('id', 'Id doesnt exist').custom(productExistById),
-    validateFields
+   validateFields
 
 ],getProduct);
 

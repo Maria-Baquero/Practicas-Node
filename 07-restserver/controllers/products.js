@@ -43,8 +43,7 @@ const getProduct = async (req = request, res = response) => {
 
     //buscamos el producto por su id y mostramos los datos junto al nombre de producto y de categoria
     const product = await Product.findById(id)
-            .populate('product', 'name')
-            .populate('categoria', 'name');
+            .populate('category', 'name');
 
     res.json(product);
 }

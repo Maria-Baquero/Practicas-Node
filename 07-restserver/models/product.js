@@ -35,7 +35,12 @@ const ProductSchema = Schema({
         type: Number,
         default: 0
     },
+    
+    img: {
+        type: String,
 
+    },
+    
     available: {
         type: Boolean,
         default: true
@@ -46,7 +51,7 @@ const ProductSchema = Schema({
 
 ProductSchema.methods.toJSON = function() {
     
-    const { __v, estado, ...data} = this.toObject();
+    const { __v, status, ...data} = this.toObject();
     return data;
 }
 
