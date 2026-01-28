@@ -2,12 +2,12 @@ const lblEscritorio = document.querySelector('h1');
 const btnAtender = document.querySelector('button');
 const lblTicket = document.querySelector('small');
 const divAlerta = document.querySelector('.alert');
-
+const lblPendientes = document.querySelector('#lblPendientes')
 
 
 const searchParams = new URLSearchParams(window.location.search);
 
-//si en los parametro de url no encuentra el escritorio devolvera a la plagina principal
+//si en los parametros de url no encuentra el escritorio devolvera a la plagina principal
 if(!searchParams.has('escritorio')){
     window.location = 'index.html';
 
@@ -40,8 +40,14 @@ socket.on('disconnect', () => {
 
 
 
-socket.on('ultimo-ticket', (last) => {
-    //lblNuevoTicket.innerText = 'Ticket ' + last;
+socket.on('tickets-pendientes', (pendientes) => {
+
+    if (pendientes === 0) {
+        lblPendientes.style.display = 'none';
+    } else {
+        lblPendientes.style.display = '';
+        lblPendientes.innerText = pendientes;
+    }
 });
 
 
