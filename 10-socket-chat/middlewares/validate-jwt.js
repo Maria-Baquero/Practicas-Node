@@ -25,20 +25,21 @@ const validateJWT = async (req, res = response, next) => {
         const user = await User.findById(uid);
 
 
+        //comprobamos si el usuario existe
         if (!user) {
             return res.status(401).json({
                     msg: 'user doesnt exist'
                 })
         }
 
-
+        //verificar si el uid tiene estado true
         if (!user.status) {
             return res.status(401).json({
                 msg: 'invalid token'
             });
         }
 
-
+        //usuario validado
         req.user = user;
 
         next();
@@ -51,9 +52,9 @@ const validateJWT = async (req, res = response, next) => {
         });
     }
 
-
-
 }
+
+
 
 
 module.exports = {

@@ -8,7 +8,7 @@ const { googleVerify } = require('../helpers/google-verify');
 
 
 
-
+//login con email y password
 const login = async (req, res = response) => {
 
 
@@ -66,7 +66,7 @@ const login = async (req, res = response) => {
 
 
 
-
+//login con google
 const googleSignIn = async (req, res = response) => {
 
     const { id_token } = req.body;
@@ -95,7 +95,7 @@ const googleSignIn = async (req, res = response) => {
 
         if(!user.status){
             return res.status(401).json({
-                msg: 'Call the administrator, user block'
+                msg: 'Call the administrator, user blocked'
             })
         }
 
@@ -117,12 +117,22 @@ const googleSignIn = async (req, res = response) => {
 }
 
 
+//renovar token de usuario
+const renewToken = async (req, res = response) => {
+    const { user } = req;
 
-
-
+    //generar nuevo JWT
+    const token = await generateJWT(user.id);
+    
+    res.json({
+        user,
+        token
+    })
+}   
 
 
 module.exports = {
     login,
-    googleSignIn
+    googleSignIn,
+    renewToken
 }
