@@ -46,6 +46,7 @@ const validateToken = async() => {
 
 const connectSocket = async() => {
 
+    //conectar el socket
     socket = io({
         extraHeaders: {
             'x-token': localStorage.getItem('token')
@@ -53,29 +54,30 @@ const connectSocket = async() => {
     });
 
 
-
+    //socket conectado
     socket.on('connect', () => {
         console.log('Sockets online');
     }
     );
 
-    
+
+    //socket desconectado
     socket.on('disconnect', () => {
         console.log('Sockets offline');
     });
 
 
-    socket.on('receive-message', () => {
+    //escuchar mensajes
+    socket.on('receive-message', printMessages);
 
-    });
 
-
+    //escuchar usuarios activos
     socket.on('active-users', printUsers);
 
 
-
-    socket.on('private-message', () => {
-
+    //escuchar mensaje privado
+    socket.on('private-message', (payload) => {
+        console.log('Private message: ', payload);
     });
 
 
@@ -83,6 +85,7 @@ const connectSocket = async() => {
 }
 
 
+//mostrar usuarios en pantalla
 const printUsers = ( users = [] ) => {
 
     let usersHtml = '';
@@ -102,6 +105,60 @@ const printUsers = ( users = [] ) => {
     
     ulUsers.innerHTML = usersHtml;
 }
+
+
+
+
+//guardar mensaje al pulsar enter
+txtMessagge.addEventListener('keyup', ({ keyCode }) => {
+
+
+    const message = txtMessagge.value;
+
+    const uid = txtUid.value;
+
+    if( keyCode !== 13 ) { return; }
+
+
+    if( message.length === 0 ) { return; }
+
+    //console.log( {message,uid} );
+
+    socket.emit( 'send-message',  { message, uid } );
+
+   
+
+});
+
+
+
+
+//mostrar mensajes en pantalla
+const printMessages = ( messages = [] ) => {
+
+    let messagesHtml = '';
+
+    messages.forEach( ({ name, message }) => {
+        messagesHtml += `
+            <li>
+                <p> 
+                    <h5 class="text-primary">${ name }</h5>
+                    <span>${ message }</span>
+                </p>
+            </li>
+        `;
+    });
+
+    
+    ulMessages.innerHTML = messagesHtml;
+}
+
+
+
+
+
+
+
 
 
 

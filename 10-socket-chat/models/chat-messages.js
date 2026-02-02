@@ -28,7 +28,7 @@ class ChatMessages {
     }
 
     //agregar mensaje
-    addMessage( uid, name, message ) {
+    sendMessage( uid, name, message ) {
         this.messages.unshift( new Message( uid, name, message ));
     }
 
