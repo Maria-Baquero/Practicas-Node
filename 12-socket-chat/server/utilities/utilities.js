@@ -1,11 +1,11 @@
 
 
-const createMessage = (name, message) => {
+const crearMensaje = (nombre, mensaje) => {
 
 
     return {
-        name,
-        message,
+        nombre,
+        mensaje,
         date: new Date().getTime()
     };
 
@@ -13,5 +13,5 @@ const createMessage = (name, message) => {
 
 
 module.exports = {
-    createMessage
+    crearMensaje
 };

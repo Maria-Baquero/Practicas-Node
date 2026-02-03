@@ -1,49 +1,49 @@
 
-class Users {
+class Usuarios {
 
 
     constructor() {
-        this.persons = [];
+        this.personas = [];
 
     }
 
 
-    // Add person
-    addPerson(id, name, hall) {
-        let person = { id, name, hall };
-        this.persons.push(person);
-        return person;
+    // Add persona
+    agregarPersona(id, nombre, sala) {
+        let persona = { id, nombre, sala };
+        this.personas.push(persona);
+        return persona;
     }
 
 
-    // Get person
-    getPerson(id){
-        let person = this.persons.filter( person => person.id === id )[0];
-        return person;
+    // Get persona
+    getPersona(id){
+        let persona = this.personas.filter( persona => persona.id === id )[0];
+        return persona;
     }
 
 
-    // Get all persons
-    getPersons(){
-        return this.persons;
+    // Get all personas
+    getPersonas(){
+        return this.personas;
     }
 
 
-    // Get persons for hall
-    getPersonForHall( hall ){
+    // Get personas for sala
+    getPersonasPorSala( sala ){
 
-        let personsHall = this.persons.filter( person => person.hall === hall );
-        return personsHall;
+        let personasEnSala = this.personas.filter( persona => persona.sala === sala );
+        return personasEnSala;
     }
 
 
-    // Delete person
-    deletePerson( id ){
+    // Delete persona
+    borrarPersona( id ){
 
-        let deletePerson = this.getPerson( id );
+        let personaBorrada = this.getPersona( id );
 
-        this.persons = this.persons.filter(persons => persons.id !== id );
-        return deletePerson;
+        this.personas = this.personas.filter(persona => persona.id !== id );
+        return personaBorrada;
     }
 
     
@@ -51,4 +51,4 @@ class Users {
 
 
 
-module.exports = { Users };
+module.exports = { Usuarios };
